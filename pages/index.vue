@@ -12,7 +12,8 @@ const lineData = reactive({
   os: '',
   language: '',
   version: '',
-  lineVersion: ''
+  lineVersion: '',
+  accessToken: ''
 })
 
 const lineInfos = computed(() => ([
@@ -27,18 +28,25 @@ const lineInfos = computed(() => ([
   {
     name: '版本',
     value: lineData.version
+  },
+  {
+    name: 'Access Token',
+    value: lineData.accessToken
   }
 ]))
 
 const login = () => {
-  if (!liff.isLoggedIn()) {
+  if (liff.isLoggedIn()) {
+    lineData.accessToken = liff.getAccessToken() || ''
+    navigateTo('/private')
+  } else {
     liff.login()
   }
-  navigateTo('/private')
 }
 
 onBeforeMount(async () => {
   await initLiff()
+  lineData.accessToken = liff.getAccessToken() || ''
 })
 
 </script>
