@@ -4,12 +4,6 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/line-liff-demo/'
   },
-  nitro: {
-    prerender: {
-      routes: ['/'],
-      crawlLinks: true
-    }
-  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@nuxtjs/device',
