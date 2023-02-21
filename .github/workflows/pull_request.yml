@@ -33,7 +33,7 @@ jobs:
     - name: Build
       run: |
         rm -rf node_modules/.cache
-        yarn build
+        yarn generate
       
     - name: Test
       run: |
