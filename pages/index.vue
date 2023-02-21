@@ -13,7 +13,8 @@ const lineData = reactive({
   language: '',
   version: '',
   lineVersion: '',
-  accessToken: ''
+  accessToken: '',
+  idToken: ''
 })
 
 const lineInfos = computed(() => ([
@@ -32,7 +33,12 @@ const lineInfos = computed(() => ([
   {
     name: 'Access Token',
     value: lineData.accessToken
+  },
+  {
+    name: 'ID Token',
+    value: lineData.idToken
   }
+
 ]))
 
 const login = () => {
@@ -43,6 +49,8 @@ const login = () => {
     liff.login()
   }
 }
+
+const getIDToken = () => liff.getIDToken()
 
 onBeforeMount(async () => {
   await initLiff()
@@ -80,6 +88,12 @@ onBeforeMount(async () => {
         @click="login"
       >
         LOGIN
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1"
+        @click="getIDToken"
+      >
+        Get ID Token
       </button>
     </footer>
   </div>
