@@ -86,13 +86,13 @@ onBeforeMount(async () => {
     <br>
     <footer>
       <button
-        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1"
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
         @click="login"
       >
-        LOGIN
+        Login
       </button>
       <button
-        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1"
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
         @click="getIDToken"
       >
         Get ID Token
