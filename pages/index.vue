@@ -54,6 +54,13 @@ const getIDToken = () => {
   lineData.idToken = liff.getIDToken() || ''
 }
 
+const sendMessages = () => {
+  liff.sendMessages([{
+    type: 'text',
+    text: lineData.idToken
+  }])
+}
+
 onBeforeMount(async () => {
   await initLiff()
   lineData.accessToken = liff.getAccessToken() || ''
@@ -96,6 +103,12 @@ onBeforeMount(async () => {
         @click="getIDToken"
       >
         Get ID Token
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="sendMessages"
+      >
+        Send Messages
       </button>
     </footer>
   </div>
