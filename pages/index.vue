@@ -50,7 +50,9 @@ const login = () => {
   }
 }
 
-const getIDToken = () => liff.getIDToken()
+const getIDToken = () => {
+  lineData.idToken = liff.getIDToken() || ''
+}
 
 onBeforeMount(async () => {
   await initLiff()
