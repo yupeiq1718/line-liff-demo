@@ -43,4 +43,4 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@releases/v4
       with:
         BRANCH: gh-pages
-        FOLDER: .output/public
+        FOLDER: .output
