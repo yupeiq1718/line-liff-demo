@@ -30,15 +30,15 @@ const lineInfos = computed(() => ([
   }
 ]))
 
+const login = () => {
+  if (!liff.isLoggedIn()) {
+    liff.login()
+  }
+  navigateTo('/private')
+}
+
 onBeforeMount(async () => {
   await initLiff()
-
-  if (liff.isLoggedIn()) {
-    alert('已登入')
-  } else {
-    liff.login()
-    alert('未登入')
-  }
 })
 
 </script>
@@ -65,5 +65,14 @@ onBeforeMount(async () => {
         </tr>
       </table>
     </article>
+    <br>
+    <footer>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1"
+        @click="login"
+      >
+        LOGIN
+      </button>
+    </footer>
   </div>
 </template>
