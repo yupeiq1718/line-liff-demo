@@ -33,7 +33,7 @@ jobs:
     - name: Build
       run: |
         rm -rf node_modules/.cache
-        yarn generate
+        yarn build
       
     - name: Test
       run: |
@@ -43,4 +43,4 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@releases/v4
       with:
         BRANCH: gh-pages
-        FOLDER: .output
+        FOLDER: .output/public
