@@ -44,11 +44,11 @@ const lineInfos = computed(() => ([
   },
   {
     name: 'LINE 版本',
-    value: lineData.context
+    value: lineData.lineVersion
   },
   {
     name: '是否內部瀏覽器',
-    value: lineData.context
+    value: lineData.isInClient
   },
   {
     name: '用戶資訊',
