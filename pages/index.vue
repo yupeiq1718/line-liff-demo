@@ -42,12 +42,13 @@ const lineInfos = computed(() => ([
 ]))
 
 const login = () => {
-  if (liff.isLoggedIn()) {
-    lineData.accessToken = liff.getAccessToken() || ''
-    navigateTo('/private')
-  } else {
+  if (!liff.isLoggedIn()) {
     liff.login()
   }
+}
+
+const getAccessToken = () => {
+  lineData.accessToken = liff.getAccessToken() || ''
 }
 
 const getIDToken = () => {
@@ -63,7 +64,6 @@ const sendMessages = () => {
 
 onBeforeMount(async () => {
   await initLiff()
-  lineData.accessToken = liff.getAccessToken() || ''
 })
 
 </script>
@@ -97,6 +97,12 @@ onBeforeMount(async () => {
         @click="login"
       >
         Login
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="getAccessToken"
+      >
+        Get Access Token
       </button>
       <button
         class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
