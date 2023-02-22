@@ -15,7 +15,8 @@ interface LineData {
   lineVersion: string,
   accessToken?: string | null,
   idToken?: string | null,
-  decodedIDToken: any | null
+  decodedIDToken: any | null,
+  context: any | null
 }
 
 const lineData = reactive<LineData>({
@@ -25,7 +26,8 @@ const lineData = reactive<LineData>({
   lineVersion: '',
   accessToken: '',
   idToken: '',
-  decodedIDToken: null
+  decodedIDToken: null,
+  context: null
 })
 
 const lineInfos = computed(() => ([
@@ -52,6 +54,10 @@ const lineInfos = computed(() => ([
   {
     name: 'Decoded ID Token',
     value: lineData.decodedIDToken
+  },
+  {
+    name: 'Decoded ID Token',
+    value: lineData.context
   }
 
 ]))
@@ -73,6 +79,11 @@ const getIDToken = () => {
 const getDecodedIDToken = () => {
   lineData.decodedIDToken = liff.getDecodedIDToken()
 }
+
+const getContext = () => {
+  lineData.context = liff.getContext()
+}
+
 const sendMessages = () => {
   liff.sendMessages([{
     type: 'text',
@@ -133,6 +144,12 @@ onBeforeMount(async () => {
         @click="getDecodedIDToken"
       >
         Get Decoded ID Token
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="getContext"
+      >
+        Context
       </button>
       <button
         class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
