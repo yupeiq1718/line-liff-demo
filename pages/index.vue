@@ -122,7 +122,14 @@ const getFriendship = async () => {
 const sendMessages = () => {
   liff.sendMessages([{
     type: 'text',
-    text: lineData.idToken || ''
+    text: 'sendMessages'
+  }])
+}
+
+const shareTargetPicker = () => {
+  liff.shareTargetPicker([{
+    type: 'text',
+    text: 'shareTargetPicker'
   }])
 }
 
@@ -203,6 +210,12 @@ onBeforeMount(async () => {
         @click="sendMessages"
       >
         Send Messages
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="shareTargetPicker"
+      >
+        Share Target Picker
       </button>
     </footer>
   </div>
