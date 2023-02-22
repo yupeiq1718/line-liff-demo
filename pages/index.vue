@@ -1,22 +1,15 @@
 <script setup lang="ts">
 import liff from '@line/liff'
 
-const initLiff = async () => {
-  await liff.init({ liffId: '1657932563-DQvjBJWz' })
-  lineData.os = liff.getOS()
-  lineData.language = liff.getLanguage()
-  lineData.version = liff.getVersion()
-}
-
 interface LineData {
   os?: string,
   language: string,
   version: string,
   lineVersion: string,
+  context: any | null,
   accessToken?: string | null,
   idToken?: string | null,
-  decodedIDToken: any | null,
-  context: any | null
+  decodedIDToken: any | null
 }
 
 const lineData = reactive<LineData>({
@@ -24,10 +17,10 @@ const lineData = reactive<LineData>({
   language: '',
   version: '',
   lineVersion: '',
+  context: null,
   accessToken: '',
   idToken: '',
-  decodedIDToken: null,
-  context: null
+  decodedIDToken: null
 })
 
 const lineInfos = computed(() => ([
@@ -44,6 +37,10 @@ const lineInfos = computed(() => ([
     value: lineData.version
   },
   {
+    name: '用戶資訊',
+    value: lineData.context
+  },
+  {
     name: 'Access Token',
     value: lineData.accessToken
   },
@@ -54,13 +51,17 @@ const lineInfos = computed(() => ([
   {
     name: 'Decoded ID Token',
     value: lineData.decodedIDToken
-  },
-  {
-    name: 'Decoded ID Token',
-    value: lineData.context
   }
 
 ]))
+
+const initLiff = async () => {
+  await liff.init({ liffId: '1657932563-DQvjBJWz' })
+  lineData.os = liff.getOS()
+  lineData.language = liff.getLanguage()
+  lineData.version = liff.getVersion()
+  lineData.context = liff.getContext()
+}
 
 const login = () => {
   if (!liff.isLoggedIn()) {
@@ -78,10 +79,6 @@ const getIDToken = () => {
 
 const getDecodedIDToken = () => {
   lineData.decodedIDToken = liff.getDecodedIDToken()
-}
-
-const getContext = () => {
-  lineData.context = liff.getContext()
 }
 
 const sendMessages = () => {
