@@ -3,18 +3,29 @@ import liff from '@line/liff'
 
 const initLiff = async () => {
   await liff.init({ liffId: '1657932563-DQvjBJWz' })
-  lineData.os = liff.getOS() || ''
-  lineData.language = liff.getLanguage() || ''
-  lineData.version = liff.getVersion() || ''
+  lineData.os = liff.getOS()
+  lineData.language = liff.getLanguage()
+  lineData.version = liff.getVersion()
 }
 
-const lineData = reactive({
+interface LineData {
+  os?: string,
+  language: string,
+  version: string,
+  lineVersion: string,
+  accessToken?: string | null,
+  idToken?: string | null,
+  decodedIDToken: any | null
+}
+
+const lineData = reactive<LineData>({
   os: '',
   language: '',
   version: '',
   lineVersion: '',
   accessToken: '',
-  idToken: ''
+  idToken: '',
+  decodedIDToken: null
 })
 
 const lineInfos = computed(() => ([
@@ -37,6 +48,10 @@ const lineInfos = computed(() => ([
   {
     name: 'ID Token',
     value: lineData.idToken
+  },
+  {
+    name: 'Decoded ID Token',
+    value: lineData.decodedIDToken
   }
 
 ]))
@@ -48,17 +63,20 @@ const login = () => {
 }
 
 const getAccessToken = () => {
-  lineData.accessToken = liff.getAccessToken() || ''
+  lineData.accessToken = liff.getAccessToken()
 }
 
 const getIDToken = () => {
-  lineData.idToken = liff.getIDToken() || ''
+  lineData.idToken = liff.getIDToken()
 }
 
+const getDecodedIDToken = () => {
+  lineData.decodedIDToken = liff.getDecodedIDToken()
+}
 const sendMessages = () => {
   liff.sendMessages([{
     type: 'text',
-    text: lineData.idToken
+    text: lineData.idToken || ''
   }])
 }
 
@@ -109,6 +127,12 @@ onBeforeMount(async () => {
         @click="getIDToken"
       >
         Get ID Token
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="getDecodedIDToken"
+      >
+        Get Decoded ID Token
       </button>
       <button
         class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
