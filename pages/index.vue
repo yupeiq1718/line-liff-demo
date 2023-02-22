@@ -95,12 +95,18 @@ const initLiff = async () => {
 const login = () => {
   if (!liff.isLoggedIn()) {
     liff.login()
+    alert('Login')
+  } else {
+    alert('Already Login')
   }
 }
 
 const logout = () => {
   if (liff.isLoggedIn()) {
     liff.logout()
+    alert('Logout')
+  } else {
+    alert('Already Logout')
   }
 }
 
@@ -131,11 +137,15 @@ const sendMessages = () => {
   }])
 }
 
-const shareTargetPicker = () => {
-  liff.shareTargetPicker([{
+const shareTargetPicker = async () => {
+  const response = await liff.shareTargetPicker([{
     type: 'text',
     text: 'shareTargetPicker'
-  }])
+  }]).catch(() => alert('Failed'))
+
+  if (response) {
+    alert('Success')
+  }
 }
 
 const scanCode = () => {
