@@ -138,6 +138,11 @@ const sendMessages = async () => {
 }
 
 const shareTargetPicker = async () => {
+  if (liff.isApiAvailable('shareTargetPicker')) {
+    alert('Not Support')
+    return
+  }
+
   const response = await liff.shareTargetPicker([{
     type: 'text',
     text: 'shareTargetPicker'
@@ -151,6 +156,11 @@ const shareTargetPicker = async () => {
 }
 
 const scanCode = async () => {
+  if (liff.isApiAvailable('scanCode')) {
+    alert('Not Support')
+    return
+  }
+
   lineData.code = await liff.scanCodeV2()
 }
 
