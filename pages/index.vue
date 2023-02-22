@@ -151,8 +151,8 @@ const shareTargetPicker = async () => {
   }
 }
 
-const scanCode = () => {
-  lineData.code = liff.scanCodeV2()
+const scanCode = async () => {
+  lineData.code = await liff.scanCodeV2()
 }
 
 onBeforeMount(async () => {
