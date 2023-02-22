@@ -79,8 +79,8 @@ const getAccessToken = () => {
   lineData.accessToken = liff.getAccessToken()
 }
 
-const getProfile = () => {
-  lineData.profile = liff.getProfile()
+const getProfile = async () => {
+  lineData.profile = await liff.getProfile()
 }
 
 const getIDToken = () => {
