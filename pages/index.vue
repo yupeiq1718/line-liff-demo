@@ -6,11 +6,12 @@ interface LineData {
   language: string,
   version: string,
   lineVersion: string,
-  context: any | null,
-  accessToken?: string | null,
-  profile?: any | null,
-  idToken?: string | null,
-  decodedIDToken?: any | null
+  context: any|null,
+  accessToken?: string|null,
+  profile?: any|null,
+  idToken?: string|null,
+  decodedIDToken?: any|null,
+  friendship?: any|null
 }
 
 const lineData = reactive<LineData>({
@@ -22,7 +23,8 @@ const lineData = reactive<LineData>({
   accessToken: '',
   profile: null,
   idToken: '',
-  decodedIDToken: null
+  decodedIDToken: null,
+  friendship: null
 })
 
 const lineInfos = computed(() => ([
@@ -57,6 +59,10 @@ const lineInfos = computed(() => ([
   {
     name: 'Decoded ID Token',
     value: lineData.decodedIDToken
+  },
+  {
+    name: 'Friendship',
+    value: lineData.friendship
   }
 
 ]))
@@ -89,6 +95,10 @@ const getIDToken = () => {
 
 const getDecodedIDToken = () => {
   lineData.decodedIDToken = liff.getDecodedIDToken()
+}
+
+const getFriendship = async () => {
+  lineData.friendship = await liff.getFriendship()
 }
 
 const sendMessages = () => {
@@ -157,6 +167,12 @@ onBeforeMount(async () => {
         @click="getDecodedIDToken"
       >
         Get Decoded ID Token
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="getFriendship"
+      >
+        Get Friendship
       </button>
       <button
         class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
