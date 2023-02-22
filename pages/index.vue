@@ -8,8 +8,9 @@ interface LineData {
   lineVersion: string,
   context: any | null,
   accessToken?: string | null,
+  profile?: any | null,
   idToken?: string | null,
-  decodedIDToken: any | null
+  decodedIDToken?: any | null
 }
 
 const lineData = reactive<LineData>({
@@ -19,6 +20,7 @@ const lineData = reactive<LineData>({
   lineVersion: '',
   context: null,
   accessToken: '',
+  profile: null,
   idToken: '',
   decodedIDToken: null
 })
@@ -43,6 +45,10 @@ const lineInfos = computed(() => ([
   {
     name: 'Access Token',
     value: lineData.accessToken
+  },
+  {
+    name: 'Get Profile',
+    value: lineData.profile
   },
   {
     name: 'ID Token',
@@ -71,6 +77,10 @@ const login = () => {
 
 const getAccessToken = () => {
   lineData.accessToken = liff.getAccessToken()
+}
+
+const getProfile = () => {
+  lineData.profile = liff.getProfile()
 }
 
 const getIDToken = () => {
@@ -132,6 +142,12 @@ onBeforeMount(async () => {
       </button>
       <button
         class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="getProfile"
+      >
+        Get Profile
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
         @click="getIDToken"
       >
         Get ID Token
@@ -141,12 +157,6 @@ onBeforeMount(async () => {
         @click="getDecodedIDToken"
       >
         Get Decoded ID Token
-      </button>
-      <button
-        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
-        @click="getContext"
-      >
-        Context
       </button>
       <button
         class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
