@@ -130,8 +130,8 @@ const getFriendship = async () => {
   lineData.friendship = await liff.getFriendship()
 }
 
-const sendMessages = () => {
-  liff.sendMessages([{
+const sendMessages = async () => {
+  await liff.sendMessages([{
     type: 'text',
     text: 'sendMessages'
   }])
@@ -142,7 +142,6 @@ const shareTargetPicker = async () => {
     type: 'text',
     text: 'shareTargetPicker'
   }]).catch((error) => {
-    console.error(error)
     alert(error)
   })
 
