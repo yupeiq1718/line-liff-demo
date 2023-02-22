@@ -12,7 +12,8 @@ interface LineData {
   profile?: any|null,
   idToken?: string|null,
   decodedIDToken?: any|null,
-  friendship?: any|null
+  friendship?: any|null,
+  code?: any|null
 }
 
 const lineData = reactive<LineData>({
@@ -73,6 +74,10 @@ const lineInfos = computed(() => ([
   {
     name: 'Friendship',
     value: lineData.friendship
+  },
+  {
+    name: 'QRcode',
+    value: lineData.code
   }
 
 ]))
@@ -131,6 +136,10 @@ const shareTargetPicker = () => {
     type: 'text',
     text: 'shareTargetPicker'
   }])
+}
+
+const scanCode = () => {
+  lineData.code = liff.scanCodeV2()
 }
 
 onBeforeMount(async () => {
@@ -216,6 +225,12 @@ onBeforeMount(async () => {
         @click="shareTargetPicker"
       >
         Share Target Picker
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="scanCode"
+      >
+        scanCodeV2()
       </button>
     </footer>
   </div>
