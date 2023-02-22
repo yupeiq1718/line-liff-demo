@@ -81,6 +81,12 @@ const login = () => {
   }
 }
 
+const logout = () => {
+  if (liff.isLoggedIn()) {
+    liff.logout()
+  }
+}
+
 const getAccessToken = () => {
   lineData.accessToken = liff.getAccessToken()
 }
@@ -143,6 +149,12 @@ onBeforeMount(async () => {
         @click="login"
       >
         Login
+      </button>
+      <button
+        class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
+        @click="logout"
+      >
+        Logout
       </button>
       <button
         class="border-2 border-slate-300 hover:bg-slate-300 px-2 py-1 mb-2 mr-2"
