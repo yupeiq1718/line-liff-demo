@@ -3,10 +3,11 @@ import liff from '@line/liff'
 
 interface LineData {
   os?: string,
-  language: string,
-  version: string,
-  lineVersion: string,
-  context: any|null,
+  language?: string,
+  version?: string,
+  lineVersion?: string | null,
+  isInClient?: boolean,
+  context?: any|null,
   accessToken?: string|null,
   profile?: any|null,
   idToken?: string|null,
@@ -19,6 +20,7 @@ const lineData = reactive<LineData>({
   language: '',
   version: '',
   lineVersion: '',
+  isInClient: false,
   context: null,
   accessToken: '',
   profile: null,
@@ -37,8 +39,16 @@ const lineInfos = computed(() => ([
     value: lineData.language
   },
   {
-    name: '版本',
+    name: 'SDK 版本',
     value: lineData.version
+  },
+  {
+    name: 'LINE 版本',
+    value: lineData.context
+  },
+  {
+    name: '是否內部瀏覽器',
+    value: lineData.context
   },
   {
     name: '用戶資訊',
@@ -72,6 +82,8 @@ const initLiff = async () => {
   lineData.os = liff.getOS()
   lineData.language = liff.getLanguage()
   lineData.version = liff.getVersion()
+  lineData.lineVersion = liff.getLineVersion()
+  lineData.isInClient = liff.isInClient()
   lineData.context = liff.getContext()
 }
 
