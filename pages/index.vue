@@ -141,7 +141,10 @@ const shareTargetPicker = async () => {
   const response = await liff.shareTargetPicker([{
     type: 'text',
     text: 'shareTargetPicker'
-  }]).catch(() => alert('Failed'))
+  }]).catch((error) => {
+    console.error(error)
+    alert(error)
+  })
 
   if (response) {
     alert('Success')
